@@ -1,0 +1,62 @@
+/* ============================================================
+   ABOUT
+   Design source: Portfolio.png (1440px wide). White background,
+   centred "ABOUT" heading, then a centred maroon paragraph whose
+   text block measures 1071px wide with a 39px line pitch.
+   ============================================================ */
+
+.about {
+  position: relative;
+  width: 100%;
+  background-color: var(--color-bg);
+  /* Space between the marquee band and the heading. Design reference
+     (Portfolio.png at 1440px): the band's lowest point sits 38px above the
+     top of the "ABOUT" capitals. */
+  padding-top: 51px;
+  padding-bottom: 60px;
+  scroll-margin-top: 80px;
+}
+
+.container {
+  max-width: var(--content-width); /* 1200px */
+  margin: 0 auto;
+  padding: 0 var(--space-4);
+}
+
+.text {
+  max-width: 1070px;
+  margin: 41px auto 0;
+  font-family: var(--font-body);
+  font-size: 34px;
+  line-height: 39px;
+  font-weight: 400;
+  text-align: center;
+  color: var(--color-primary);
+}
+
+/* ============================================================
+   TABLET + MOBILE (< 1024px)
+   ============================================================ */
+@media (max-width: 1023px) {
+  .about {
+    padding-top: 56px;
+    padding-bottom: 48px;
+  }
+
+  .container {
+    padding: 0 var(--space-3);
+  }
+
+  .text {
+    margin-top: 32px;
+    font-size: 22px;
+    line-height: 32px;
+  }
+}
+
+@media (max-width: 479px) {
+  .text {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}

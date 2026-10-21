@@ -1,0 +1,387 @@
+/* ============================================================
+   HERO
+   Desktop (>= 1024px): absolute editorial composition, portrait
+   layered over the circle.
+   Tablet + mobile (< 1024px): centred flow stack (heading, tagline,
+   badge, portrait, CTA) because the absolute composition cannot fit
+   below ~950px.
+   ============================================================ */
+
+.hero {
+  position: relative;
+  width: 100%;
+  padding-top: var(--space-4);
+  /* scroll-margin-top ensures smooth scroll doesn't hide hero content */
+  scroll-margin-top: 80px;
+}
+
+.container {
+  position: relative;
+  max-width: var(--content-width); /* 1200px */
+  min-height: 720px;
+  margin: 0 auto;
+}
+
+/* ── Layers 1 + 2 wrapper ──
+   Desktop: transparent full-size stage, so the circle and portrait keep the
+   exact coordinates they had when they were direct children of .container. */
+.portrait {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ── Layer 1: Gradient circle ── */
+.circle {
+  position: absolute;
+  width: 560px;
+  height: 560px;
+  left: 50%;
+  top: 48%;
+  transform: translate(-55%, -50%);
+  pointer-events: none;
+  z-index: 1;
+  animation: circleIn 600ms ease-out forwards;
+}
+
+/* ── Layer 2: Hero portrait ── */
+.photo {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  height: 600px;
+  width: auto;
+  object-fit: contain;
+  object-position: bottom;
+  z-index: 2;
+  animation: fadeIn 400ms ease-out forwards;
+}
+
+/* ── Layer 3: Semantic heading and texts ── */
+.heroHeading {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* "I'm" on the left */
+.im {
+  position: absolute;
+  left: 60px;
+  top: 60px;
+  font-family: var(--font-display);
+  font-size: 160px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, #1b0d10 0%, var(--color-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  pointer-events: auto;
+  animation: fadeIn 400ms ease-out forwards;
+}
+
+/* "Azzam" on the right, overlapping shoulder and chest */
+.azzam {
+  position: absolute;
+  left: calc(50% + 40px);
+  top: 290px;
+  font-family: var(--font-display);
+  font-size: 130px;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, var(--color-primary) 0%, #d83d47 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 4px 16px rgba(122, 34, 48, 0.25));
+  pointer-events: auto;
+  animation: fadeIn 400ms ease-out forwards;
+}
+
+/* 3a: Under "I'm" (divider + tagline) */
+.taglineBlock {
+  position: absolute;
+  left: 60px;
+  top: 220px;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  animation: fadeIn 400ms ease-out forwards;
+}
+
+.divider {
+  width: 40px;
+  height: 2px;
+  background-color: var(--color-primary);
+  border-radius: 2px;
+  display: block;
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--color-ink);
+  max-width: 240px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* 3b: Badge under "Azzam", right-aligned */
+.badge {
+  position: absolute;
+  left: calc(50% + 40px);
+  width: 370px;
+  top: 425px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  z-index: 4;
+  animation: fadeIn 400ms ease-out forwards;
+}
+
+.badgeYears {
+  font-family: var(--font-body);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.1;
+}
+
+.badgeLabel {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+/* 3c: Maroon StarIcon to the upper right of the head */
+.starCluster {
+  position: absolute;
+  left: calc(50% + 140px);
+  top: 120px;
+  z-index: 4;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  pointer-events: none;
+  animation: fadeIn 400ms ease-out forwards;
+}
+
+.starLarge {
+  filter: drop-shadow(0 2px 8px rgba(122, 34, 48, 0.2));
+}
+
+.starSmall {
+  margin-top: 4px;
+}
+
+/* 3d: Bottom left of the photo (Download CV + Let's Talk) */
+.ctaGroup {
+  position: absolute;
+  left: 60px;
+  bottom: 80px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  animation: fadeIn 400ms ease-out forwards;
+}
+
+/* ── Animations ── */
+@keyframes circleIn {
+  0% {
+    opacity: 0;
+    transform: translate(-55%, -50%) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-55%, -50%) scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* ============================================================
+   TABLET + MOBILE (< 1024px)
+   ============================================================ */
+@media (max-width: 1023px) {
+  .hero {
+    padding-top: var(--space-3);
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 0;
+    max-width: 640px;
+    padding: var(--space-3) var(--space-3) 0;
+  }
+
+  /* Portrait becomes a centred flow item, circle centred behind it */
+  .portrait {
+    position: relative;
+    inset: auto;
+    order: 4;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-2);
+  }
+
+  .circle {
+    left: 50%;
+    top: 50%;
+    width: min(88vw, 440px);
+    height: auto;
+    transform: translate(-50%, -50%);
+    animation: fadeIn 400ms ease-out forwards;
+  }
+
+  .photo {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    width: min(62vw, 320px);
+    height: auto;
+  }
+
+  /* Heading sits in flow, spans centred side by side */
+  .heroHeading {
+    position: static;
+    inset: auto;
+    order: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: center;
+    column-gap: var(--space-2);
+    width: 100%;
+    pointer-events: auto;
+  }
+
+  .im {
+    position: static;
+    left: auto;
+    top: auto;
+    font-size: clamp(38px, 10.5vw, 84px);
+    line-height: 1;
+  }
+
+  .azzam {
+    position: static;
+    left: auto;
+    top: auto;
+    font-size: clamp(44px, 12.5vw, 100px);
+    line-height: 1;
+  }
+
+  .taglineBlock {
+    position: static;
+    left: auto;
+    top: auto;
+    order: 2;
+    align-items: center;
+    margin-top: var(--space-2);
+  }
+
+  .tagline {
+    max-width: 38ch;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .badge {
+    position: static;
+    left: auto;
+    top: auto;
+    order: 3;
+    width: auto;
+    align-items: center;
+    margin-top: var(--space-2);
+  }
+
+  /* Decorative stars tuck into the top-right corner */
+  .starCluster {
+    left: auto;
+    right: 2%;
+    top: 0;
+    gap: 4px;
+    transform: scale(0.75);
+    transform-origin: top right;
+  }
+
+  .ctaGroup {
+    position: static;
+    left: auto;
+    bottom: auto;
+    order: 5;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: var(--space-3) 0 var(--space-8);
+  }
+}
+
+/* ============================================================
+   SMALL MOBILE (< 480px)
+   ============================================================ */
+@media (max-width: 479px) {
+  .container {
+    padding-left: var(--space-2);
+    padding-right: var(--space-2);
+  }
+
+  .ctaGroup {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Full-width stacked CTA buttons */
+  .ctaGroup > * {
+    width: 100%;
+  }
+
+  .photo {
+    width: min(72vw, 280px);
+  }
+
+  .circle {
+    width: min(96vw, 380px);
+  }
+}
+
+/* prefers-reduced-motion: disable all animation.
+   No transform overrides needed here — with `animation: none` each element
+   simply keeps the transform declared by its own rule. */
+@media (prefers-reduced-motion: reduce) {
+  .circle,
+  .photo,
+  .im,
+  .azzam,
+  .taglineBlock,
+  .badge,
+  .starCluster,
+  .ctaGroup {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}

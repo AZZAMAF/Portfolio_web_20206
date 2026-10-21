@@ -1,0 +1,335 @@
+/* ============================================================
+   NAVBAR
+   Desktop (>= 1024px): sticky maroon pill, links split around the brand.
+   Tablet (768-1023px): same pill, tightened spacing so it still fits.
+   Mobile (< 768px): brand + hamburger, full-width dropdown menu.
+   ============================================================ */
+
+.header {
+  position: sticky;
+  top: 16px;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  pointer-events: none; /* Allows clicks on transparent areas outside the pill */
+}
+
+/* Positioning context for the mobile dropdown, and the element that owns the
+   pill's width so the dropdown can match it edge to edge. */
+.pillWrap {
+  position: relative;
+  width: 85%;
+  max-width: var(--content-width); /* 1200px */
+  pointer-events: auto;
+}
+
+.pill {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 56px;
+  background-color: var(--color-primary);
+  border-radius: var(--radius-pill);
+  padding: 0 8px;
+  box-shadow: 0 8px 28px rgba(122, 34, 48, 0.28);
+}
+
+/* ── Nav lists ── */
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navListRight {
+  justify-content: flex-end;
+}
+
+/* ── Nav link ── */
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background-color 200ms ease, color 200ms ease;
+  white-space: nowrap;
+}
+
+.navLink:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+/* Active link: white pill with maroon text */
+.active {
+  background-color: #ffffff;
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.active:hover {
+  background-color: #ffffff;
+  color: var(--color-primary);
+}
+
+.navLink:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* ── Center brand ── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  transition: opacity 200ms ease;
+  flex-shrink: 0;
+}
+
+.brand:hover {
+  opacity: 0.9;
+}
+
+.brand:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.brandText {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+}
+
+/* White circular badge for AAF logo */
+.logoBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: var(--color-primary);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+/* ── Hamburger toggle (mobile only) ── */
+.menuToggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 200ms ease;
+}
+
+.menuToggle:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.menuToggle:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.menuIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 20px;
+  height: 14px;
+}
+
+.menuIcon span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background-color: #ffffff;
+  transition: transform 200ms ease, opacity 200ms ease;
+}
+
+/* Bars fold into an X while the menu is open */
+.menuToggle[aria-expanded='true'] .menuIcon span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.menuToggle[aria-expanded='true'] .menuIcon span:nth-child(2) {
+  opacity: 0;
+}
+
+.menuToggle[aria-expanded='true'] .menuIcon span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* ── Mobile dropdown ── */
+.mobileMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  pointer-events: auto;
+  padding: var(--space-1);
+  background-color: var(--color-bg);
+  border: 1px solid rgba(122, 34, 48, 0.12);
+  border-radius: var(--radius-card);
+  box-shadow: 0 14px 34px rgba(122, 34, 48, 0.2);
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  animation: menuIn 180ms ease-out;
+}
+
+.mobileList {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mobileLink {
+  display: block;
+  padding: 12px 16px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--color-primary);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+.mobileLink:hover {
+  background-color: rgba(122, 34, 48, 0.08);
+}
+
+.mobileLinkActive {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.mobileLinkActive:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.mobileLink:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+@keyframes menuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================
+   TABLET (768px - 1279px)
+   Tighten the pill so all six links + brand still fit on one row.
+   ============================================================ */
+@media (max-width: 1279px) {
+  .pillWrap {
+    width: 92%;
+  }
+
+  .navLink {
+    padding: 7px 13px;
+    font-size: 0.875rem;
+  }
+
+  .brand {
+    gap: 6px;
+    padding: 4px 8px;
+  }
+
+  .brandText {
+    font-size: 0.9375rem;
+  }
+
+  .logoBadge {
+    width: 30px;
+    height: 30px;
+    font-size: 0.6875rem;
+  }
+}
+
+/* ============================================================
+   MOBILE (< 768px)
+   Links collapse into the hamburger dropdown.
+   ============================================================ */
+@media (max-width: 767px) {
+  .header {
+    top: 10px;
+  }
+
+  .pillWrap {
+    width: calc(100% - var(--space-4));
+  }
+
+  .navList {
+    display: none;
+  }
+
+  .brand {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .menuToggle {
+    display: inline-flex;
+  }
+}
+
+/* Keep the dropdown out of the desktop layout even if it is left open */
+@media (min-width: 768px) {
+  .mobileMenu {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileMenu {
+    animation: none;
+  }
+
+  .menuIcon span {
+    transition: none;
+  }
+}

@@ -1,0 +1,62 @@
+/* ============================================================
+   SECTION TITLE
+   Design source: Portfolio.png — "ABOUT" heading at 1440px wide:
+   Playfair Display 700, 64px, pure black, centred, uppercase.
+   ============================================================ */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  width: 100%;
+}
+
+.center {
+  align-items: center;
+  text-align: center;
+}
+
+.left {
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Small kicker, e.g. "— CAREER PATH" */
+.label {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+
+.label::before {
+  content: "— ";
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--color-heading);
+}
+
+/* ============================================================
+   TABLET + MOBILE (< 1024px)
+   ============================================================ */
+@media (max-width: 1023px) {
+  .title {
+    font-size: 48px;
+  }
+}
+
+@media (max-width: 479px) {
+  .title {
+    font-size: 36px;
+  }
+}
